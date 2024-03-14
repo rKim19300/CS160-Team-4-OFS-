@@ -17,38 +17,14 @@ def main():
 
     driver.get(LOGIN_URL)
     
-    # Test clicking Continue without Input
+    # Test Case: empty Input Field
+    # clickContinue(driver)
+
+    # Test Case: Successfully login
+    fillInEmail(driver, "testEmail@gmail.com")
+    fillInPassword(driver, "P@ssw0rd")
     clickContinue(driver)
 
-    # Wait before proceed to avoid web load slowly issue
-    # WebDriverWait(driver, 5).until(
-    #     EC.presence_of_element_located((By.CLASS_NAME, "chakra-input css-datkyu"))
-    # )
-
-    # # Testing steps
-    # input_element = driver.find_element(By.CLASS_NAME, "chakra-input css-datkyu")
-    # input_element.clear()
-    # input_element.send_keys("testEmail@gmail.com" + Keys.ENTER)
-
-    # # Wait before proceed to avoid web load slowly issue
-    # WebDriverWait(driver, 5).until(
-    #     EC.presence_of_element_located((By.CLASS_NAME, "gLFyf"))
-    # )
-
-
-    # # Find and click on the matched first link found
-    # link = driver.find_element(By.PARTIAL_LINK_TEXT, "Tech With Tim")
-    # link.click()
-
-    # # Find and return an array of all match results
-    # #link = driver.find_elements(By.PARTIAL_LINK_TEXT, "Tech With Tim")
-
-    
-    
-    # WebDriverWait(driver, 5).until(
-    #     EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Continue')]"))
-    # )
-    
     # continueButton = driver.find_element(By.XPATH, "//*[contains(text(), 'Continue')]")
     # continueButton.click()
 
@@ -56,6 +32,7 @@ def main():
     driver.quit()
     
 def clickContinue(driver):
+    # Wait for page elements to load
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Continue')]"))
     )
@@ -63,6 +40,24 @@ def clickContinue(driver):
     continueButton = driver.find_element(By.XPATH, "//*[contains(text(), 'Continue')]")
     continueButton.click()
 
+def fillInEmail(driver, email):
+    # Wait for page elements to load
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//input[@type='email']")))
+    
+    # Locate email input fields and fill in test email
+    emailInput = driver.find_element(By.XPATH, "//input[@type='email']")
+    emailInput.clear()
+    emailInput.send_keys(email)
 
+def fillInPassword(driver, password):
+    # Wait for page elements to load
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@type='password']")))
+    
+    # Locate password input fields and fill in test password
+    passwordInput = driver.find_element(By.XPATH, "//input[@type='password']")
+    passwordInput.clear()
+    passwordInput.send_keys(password)
+    
+    
 if __name__ == '__main__':
     main()
