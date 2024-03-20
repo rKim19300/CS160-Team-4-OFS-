@@ -20,16 +20,20 @@ def main():
     # Test Case: empty Input Field
     # clickContinue(driver)
 
-    # Test Case: Successfully login
-    fillInEmail(driver, "testEmail@gmail.com")
-    fillInPassword(driver, "P@ssw0rd")
-    clickContinue(driver)
+    # Test Case: Owner Account
+    testAdminAccount(driver)
 
     # continueButton = driver.find_element(By.XPATH, "//*[contains(text(), 'Continue')]")
     # continueButton.click()
 
     time.sleep(10)
     driver.quit()
+    
+def testAdminAccount(driver):
+    ''' Test Case for Admin account Successfully login '''
+    fillInEmail(driver, "admin@admin.com")
+    fillInPassword(driver, "admin")
+    clickContinue(driver)
     
 def clickContinue(driver):
     # Wait for page elements to load
@@ -42,7 +46,7 @@ def clickContinue(driver):
 
 def fillInEmail(driver, email):
     # Wait for page elements to load
-    WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//input[@type='email']")))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@type='email']")))
     
     # Locate email input fields and fill in test email
     emailInput = driver.find_element(By.XPATH, "//input[@type='email']")
